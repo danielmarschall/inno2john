@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+use lib '.';
+
 use strict;
 use Cwd;
 use Getopt::Long;

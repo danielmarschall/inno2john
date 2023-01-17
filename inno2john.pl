@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+use lib '.';
+
 use strict;
 use warnings;
 use diagnostics;
@@ -57,7 +59,7 @@ if ($mode eq 'list') {
 		my $file = $inno->FileInfo($i);
 		if ($file->{Type} eq 'App') {
 			eval {
-				printf("%u: %s %s %u %s %s%s...", $i, $file->{Name}, $file->{Type}, $file->{Size}, $file->{Date}->format_cldr('yyyy-MM-dd HH:mm:ss'), $file->{Compressed} ? 'C' : '', $file->{Encrypted} ? 'E' : '');
+#				printf("%u: %s %s %u %s %s%s...", $i, $file->{Name}, $file->{Type}, $file->{Size}, $file->{Date}->format_cldr('yyyy-MM-dd HH:mm:ss'), $file->{Compressed} ? 'C' : '', $file->{Encrypted} ? 'E' : '');
 				my $name = $file->{Name};
 				if ($strip) {
 					$name =~ s#^.*?([^/]+)$#$1#;
