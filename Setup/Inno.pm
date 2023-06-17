@@ -125,7 +125,19 @@ sub FileLocations {
 		my $setup0 = $self->Setup0();
 		$self->{Input}->seek($setup0->{OffsetLocations}, Fcntl::SEEK_SET);
 		my $struct = $self->{Interpreter}->StructReader($self->{Input});
-		print '$dynamic_25$';
+  
+		# https://jrsoftware.org/ishelp/index.php?topic=unicode says,
+		# Prior to Inno Setup 6 two versions of Inno Setup were
+		# available: Non Unicode Inno Setup and Unicode Inno Setup.
+		# Starting with Inno Setup 6 there's only one version
+		# available: Unicode Inno Setup.
+		my $version = $self->{Interpreter}->Version; # my $version = $bareversion . $self->{IsUnicode};
+		if ($version =~ /u\z/) {
+			print '$dynamic_41$'; # https://github.com/openwall/john/issues/5318
+		} else {
+			print '$dynamic_25$';
+		}
+  
 		my $h = unpack("H*", $setup0->{Header}->{PasswordHash});
 		print $h, '$HEX$';
 		print unpack("H*", "PasswordCheckHash");
